@@ -1,6 +1,7 @@
 \documentclass{beamer} 
 
 \usepackage{hayesmacros}
+\usepackage{appendixnumberbeamer}
 
 \usetheme{metropolis}
 \setsansfont{Fira Sans}  % be sure to compile with XeLaTeX
@@ -23,9 +24,9 @@
 \hypersetup{colorlinks,citecolor=cyan, urlcolor=cyan, linkcolor=black}
 
 \title{Estimating network-mediated causal effects via spectral embeddings}
-\date{2023-03-24 @ IFDS Ideas Forum}
+\date{2023-03-24 @ IFDS Ideas Forum \\ Department of Statistics, University of Wisconsin-Madison}
 \author{Alex Hayes}
-\institute{Department of Statistics, University of Wisconsin-Madison}
+\institute{Slides available at \url{https://tinyurl.com/ifds-alex}}
 
 
 \begin{document}
@@ -709,13 +710,9 @@
 
     Read the manuscript at \url{https://arxiv.org/abs/2212.12041}
 
-    \textbf{Follow-up work we're interested in}
+    Slides available at \url{https://tinyurl.com/ifds-alex}
 
-    \begin{itemize}
-        \item Better identifiability via varimax rotation
-        \item Extension to GLMs
-        \item Accommodating network interference
-    \end{itemize}
+    R package \href{https://github.com/alexpghayes/netmediate}{netmediate}
 
     \textbf{Stay in touch}
 
@@ -726,12 +723,10 @@
         \item[] \faIcon{github} \url{https://github.com/alexpghayes}
     \end{itemize}
 
-
-
-
+    \textbf{I'll be on the post-doc market in Fall 2023}
 \end{frame}
 
-\section{Appendix}
+\appendix
 
 \begin{frame}{Disambiguation: contagion is not allowed}
 
@@ -773,10 +768,7 @@
 \end{frame}
 
 \begin{frame}{Semi-parametric network model}
-
     Let $A \in \R^{n \times n}$ be a random symmetric matrix, such as the adjacency matrix of an undirected graph. Let $\Apop = \E[\X]{A} = \X \X^T$ be the expectation of $A$ conditional on $\X \in \R^{n \times d}$, which has independent and identically distributed rows $\X_{1 \cdot}, \dots, \X_{n \cdot}$. That is, $\Apop$ has $\rank \paren*{\Apop} = d$ and is positive semi-definite with eigenvalues $\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_d > 0 = \lambda_{d+1} = \cdots = \lambda_n$. Conditional on $\X$, the upper-triangular elements of $A - \Apop$ are independent $(\nu_n, b_n)$-sub-gamma random variables.
-
-    Includes: (degree-corrected) stochastic blockmodels, overlapping blockmodels, mixed membership blockmodels, random dot product graphs, factor models, topic models, LDA, etc
 \end{frame}
 
 
