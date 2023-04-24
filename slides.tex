@@ -65,7 +65,16 @@
 
 \end{frame}
 
-\section{Two questions for the audience}
+
+\begin{frame}{Two questions for the audience}
+
+    1. How familiar are you with directed acyclic graphs?
+
+
+    2. How familiar are you with stochastic block models?
+
+\end{frame}
+
 
 \begin{frame}{A short story about arriving in Madison \& the Great Dane}
 
@@ -407,11 +416,10 @@
     Can disambiguate these causal effects using mediation analysis
 \end{frame}
 
-\begin{frame}{Average treatment effects}
+\begin{frame}{Average treatment effect (counterfactual quantity)}
 
     \begin{itemize}
         \item \emph{Average treatment effect}: how much the outcome $Y$ (Great Dane visits) would change on average if the treatment $T$ were changed from $T = t$ (liking frisbee) to $T = t^*$ (not liking frisbee)
-
               \begin{equation*}
                   \ate = \E{Y_i(t) - Y_i(t^*)}
               \end{equation*}
@@ -424,15 +432,13 @@
 \end{frame}
 
 
-\begin{frame}{Natural indirect effects}
+\begin{frame}{Natural indirect effect (counterfactual quantity)}
 
     \begin{itemize}
         \item \emph{Natural indirect effect}: how much the outcome $Y$ (Great Dane visits) would change on average if the exposure were fixed at level $T = t^*$ (not liking frisbee) but the mediator $\X$ (friend group) were changed from the level it would take if $T = t$ (liking frisbee) to the level it would take if $T = t^*$ (not liking frisbee)
-
               \begin{equation*}
                   \nie = \E{Y_i (t, \X_{i \cdot}(t)) - Y_i (t, \X_{i \cdot} (t^*))}
               \end{equation*}
-
         \item Captures the effect of the exposure on the outcome that operates by changing the mediator
     \end{itemize}
 
@@ -440,17 +446,14 @@
 
 \end{frame}
 
-\begin{frame}{Natural direct effects}
+\begin{frame}{Natural direct effect (counterfactual quantity)}
 
     \begin{itemize}
         \item \emph{Natural direct effect}: how much the outcome $Y$ (Great Dane visits) would change if the exposure $T$ were set at level $T = t^*$ (liking frisbee) versus $T = t$ (liking frisbee) but for each individual the mediator $\X$ (friend group) were kept at the level it would have taken, for that individual, if $T$ had been set to $t^*$ (not liking frisbee)
-
               \begin{equation*}
                   \nde = \E{Y_i (t, \X_{i \cdot}(t^*)) - Y_i (t^*, \X_{i \cdot} (t^*))}
               \end{equation*}
-
         \item Captures the effect of the exposure on the outcome that would remain if we were to disable the pathway from the exposure to the mediator
-
     \end{itemize}
 
     I claim $\nde$ is zero in my example.
@@ -459,7 +462,16 @@
 
 \end{frame}
 
-\section{If we knew the friend groups $\X$, we could use standard tools for causal mediation analysis. But we don't know $\X$! Instead, we observe the friendship network $A$}
+\begin{frame}{If we knew the friend groups $\X$, we could use standard tools for causal mediation analysis. But we don't know $\X$! Instead, we observe the friendship network $A$}
+
+    \centering
+
+    \begin{figure}
+        \includegraphics[scale=0.65]{figures/dags/mediating-5.png}
+        \label{fig:mediating-5-again}
+    \end{figure}
+
+\end{frame}
 
 \section{Semi-parametric network \& network regression models}
 
@@ -515,9 +527,7 @@
         \includegraphics[scale=0.35]{figures/dags/mediating-5.png}
         \label{fig:mediating-5-again}
     \end{figure}
-
     Idea: interventions $T_i$ can cause community membership $\X_{i \cdot}$
-
     \begin{align*}
         \underbrace{\E[T_i, \C_{i \cdot}]{\X_{i \cdot}}}_{\R^{1 \times d}}
          & = \underbrace{\thetazero}_{\R^{1 \times d}}
@@ -525,7 +535,6 @@
         + \underbrace{\C_{i \cdot}}_{\R^{1 \times p}} \underbrace{\Thetac}_{\R^{p \times d}}
         + \underbrace{T_i}_{\{0, 1\}} \underbrace{\C_{i \cdot}}_{\R^{1 \times p}} \underbrace{\Thetatc}_{\R^{p \times d}}.
     \end{align*}
-
     Ex: I like frisbee so I joined an ultimate frisbee team (MUFA)
 
 \end{frame}
@@ -540,7 +549,6 @@
     \end{figure}
 
     Idea: community membership $\X_{i \cdot}$ can cause outcomes $Y_i$
-
     \begin{align*}
         \underbrace{\E[T_i, \C_{i \cdot}, \X_{i \cdot}]{Y_i}}_{\R}
          & = \underbrace{\betazero}_{\R}
@@ -548,7 +556,6 @@
         + \underbrace{\C_{i \cdot}}_{\R^{1 \times p}} \underbrace{\betac}_{\R^{p}}
         + \underbrace{\X_{i \cdot}}_{\R^{1 \times d}} \underbrace{\betax}_{\R^d}
     \end{align*}
-
     Ex: I'm on a frisbee team, and the frisbee team goes to the Great Dane together after each game
 
 \end{frame}
@@ -556,7 +563,6 @@
 \begin{frame}{Semi-parametric causal identification}
 
     Recall the regression models:
-
     \begin{equation*}
         \begin{aligned}
             \underbrace{\E[T_i, \C_{i \cdot}, \X_{i \cdot}]{Y_i}}_{\R}
@@ -571,9 +577,7 @@
             + \underbrace{T_i}_{\{0, 1\}} \underbrace{\C_{i \cdot}}_{\R^{1 \times p}} \underbrace{\Thetatc}_{\R^{p \times d}}.
         \end{aligned}
     \end{equation*}
-
     Then:
-
     \begin{align*}
         \ndef & = \paren*{t - t^*} \, \betat                                                        \\
         \nief & = \paren*{t - t^*} \, \thetat \, \betax + (t - t^*) \, \mu_c \, \Thetatc \, \betax.
@@ -607,10 +611,9 @@
 
     Well-known that $\Xhat$ is a good estimate of $\X$
 
-    \begin{lemma}[\cite{levin_recovering_2022}]
+    \begin{lemma}
 
         Under a suitably well-behaved network model, if $\widehat{d}$ is correctly specified or consistently estimated, there is some $d \times d$ orthogonal matrix $Q$ such that
-
         \begin{equation*}
             \max_{i \in [n]} \, \norm*{\Xhat_{i \cdot} - \X_{i \cdot} Q} = \op{1}.
         \end{equation*}
@@ -634,7 +637,6 @@
         \end{bmatrix}
         = \paren*{\Dhat^T \Dhat}^{-1} \Dhat^T Y.
     \end{equation*}
-
     Similarly, we estimate $\Theta$ via ordinary least squares as
     \begin{equation*}
         \Thetahat
@@ -645,12 +647,10 @@
 \begin{frame}{Causal estimators}
 
     To estimate $\nde$ and $\nie$ in our semi-parametric setting, we combine regression coefficients from the network regression models:
-
     \begin{align*}
         \cdehat & = \ndehat = \paren*{t - t^*} \, \betathat                                                                              & \text{and} \\
         \niehat & = \paren*{t - t^*} \, \thetathat \, \betaxhat + \paren*{t - t^*} \cdot \widehat{\mu}_c \cdot \Thetatchat \, \betaxhat.
     \end{align*}
-
     It's standard to fit two regressions and multiply coefficients to estimate an indirect effect like this \citep{vanderweele_mediation_2014}.
 
 \end{frame}
@@ -662,7 +662,6 @@
         \vspace{2mm}
 
         Under some mild assumptions, there is some unknown matrix $Q$ such that
-
         \begin{equation*}
             \begin{aligned}
                 \sqrt{ n } \,
@@ -682,7 +681,6 @@
                 \Normal{0}{I_{p d}}.
             \end{aligned}
         \end{equation*}
-
         \noindent where $\Sigmahattheta^{-1/2}$ and $\Sigmahatbeta^{-1/2}$ are the typical heteroscedasticity robust covariance estimators, with $\Xhat$ plugged in for $\X$.
     \end{theorem}
 \end{frame}
@@ -694,7 +692,6 @@
         \vspace{2mm}
 
         Under the same statistical assumptions as before, plus mediating homophily,
-
         \begin{align*}
             \sqrt{n \, \sigmahatnde} \paren*{\ndehat - \nde}
              & \to
@@ -703,20 +700,19 @@
              & \to
             \Normal{0}{1}.
         \end{align*}
-
         \noindent where $\sigmahatnde$ and $\sigmahatnie$ are rather unfriendly variance estimators derived via the delta method and the previous theorem.
 
     \end{theorem}
 
 \end{frame}
 
-\section{Data example (if there is time)}
+% \section{Data example (if there is time)}
 
-\begin{frame}{Glasgow data}
+% \begin{frame}{Glasgow data}
 
-    TODO
+%     TODO
 
-\end{frame}
+% \end{frame}
 
 
 \begin{frame}{Thank you! Questions?}
@@ -770,12 +766,10 @@
 \begin{frame}{More on interference and contagion}
 
     Interference and contagion effects are allowed \emph{so long as they happen in the latent space}. Suppose
-
     \begin{align*}
         \E[\W_{i \cdot}, \X_{i \cdot}]{Y_i}
         = \W_{i \cdot} \betaw + \X_{i \cdot} \beta'_\text{x} + \delta_\text{y} \sum_{j} \X_{i \cdot}^T \X_{j \cdot} Y_j
     \end{align*}
-
     This latent space contagion model is a special parametric case of the regression outcome model (take $\betax = \beta'_\text{x} + \X^T Y \delta_\text{y}$).
 
 \end{frame}
